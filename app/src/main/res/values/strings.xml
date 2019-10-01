@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">AppCMySQLAndroid</string>
+    <string name="view_all">Visualizar todos os filmes</string>
+    <string name="add_new">Adicionar novos filmes</string>
+    <string name="title_activity_movie_update_delete">MovieUpdateDeleteActivity</string>
+    <string name="movieName">Nome do Filme</string>
+    <string name="genre">Genero</string>
+    <string name="year">Ano</string>
+    <string name="rating">Avaliação</string>
+    <string name="update">Alterar</string>
+    <string name="delete">Excluir</string>
+    <string name="add">Adicionar</string>
+</resources>
