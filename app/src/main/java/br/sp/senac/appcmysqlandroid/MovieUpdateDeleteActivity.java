@@ -46,6 +46,7 @@ public class MovieUpdateDeleteActivity extends AppCompatActivity {
     private Button updateButton;
     private int success;
     private ProgressDialog pDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +75,7 @@ public class MovieUpdateDeleteActivity extends AppCompatActivity {
 
                 } else {
                     Toast.makeText(MovieUpdateDeleteActivity.this,
-                            "Unable to connect to internet",
+                            "Não foi possível conectar-se à Internet",
                             Toast.LENGTH_LONG).show();
 
                 }
@@ -85,16 +86,14 @@ public class MovieUpdateDeleteActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * Fetches single movie details from the server
-     */
+
     private class FetchMovieDetailsAsyncTask extends AsyncTask<String, String, String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            //Display progress bar
+
             pDialog = new ProgressDialog(MovieUpdateDeleteActivity.this);
-            pDialog.setMessage("Loading Movie Details. Please wait...");
+            pDialog.setMessage("Carregando detalhes do filme. Por favor, aguardo...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
@@ -111,7 +110,7 @@ public class MovieUpdateDeleteActivity extends AppCompatActivity {
                 int success = jsonObject.getInt(KEY_SUCCESS);
                 JSONObject movie;
                 if (success == 1) {
-                    //Parse the JSON response
+
                     movie = jsonObject.getJSONObject(KEY_DATA);
                     movieName = movie.getString(KEY_MOVIE_NAME);
                     genre = movie.getString(KEY_GENRE);
@@ -180,7 +179,7 @@ public class MovieUpdateDeleteActivity extends AppCompatActivity {
             super.onPreExecute();
             //Display progress bar
             pDialog = new ProgressDialog(MovieUpdateDeleteActivity.this);
-            pDialog.setMessage("Deleting Movie. Please wait...");
+            pDialog.setMessage("Excluindo filme. Por favor, aguarde...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
@@ -190,7 +189,7 @@ public class MovieUpdateDeleteActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
             HttpJsonParser httpJsonParser = new HttpJsonParser();
             Map<String, String> httpParams = new HashMap<>();
-            //Set movie_id parameter in request
+
             httpParams.put(KEY_MOVIE_ID, movieId);
             JSONObject jsonObject = httpJsonParser.makeHttpRequest(
                     BASE_URL + "delete_movie.php", "POST", httpParams);
@@ -209,7 +208,7 @@ public class MovieUpdateDeleteActivity extends AppCompatActivity {
                     if (success == 1) {
                         //Display success message
                         Toast.makeText(MovieUpdateDeleteActivity.this,
-                                "Movie Deleted", Toast.LENGTH_LONG).show();
+                                "Filme excluído", Toast.LENGTH_LONG).show();
                         Intent i = getIntent();
                         //send result code 20 to notify about movie deletion
                         setResult(20, i);
@@ -217,7 +216,7 @@ public class MovieUpdateDeleteActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(MovieUpdateDeleteActivity.this,
-                                "Some error occurred while deleting movie",
+                                "Ocorreu um erro ao excluir o filme",
                                 Toast.LENGTH_LONG).show();
 
                     }
@@ -226,13 +225,7 @@ public class MovieUpdateDeleteActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Checks whether all files are filled. If so then calls UpdateMovieAsyncTask.
-     * Otherwise displays Toast message informing one or more fields left empty
-     */
     private void updateMovie() {
-
-
         if (!STRING_EMPTY.equals(movieNameEditText.getText().toString()) &&
                 !STRING_EMPTY.equals(genreEditText.getText().toString()) &&
                 !STRING_EMPTY.equals(yearEditText.getText().toString()) &&
@@ -245,16 +238,13 @@ public class MovieUpdateDeleteActivity extends AppCompatActivity {
             new UpdateMovieAsyncTask().execute();
         } else {
             Toast.makeText(MovieUpdateDeleteActivity.this,
-                    "One or more fields left empty!",
+                    "Um ou mais campos deixados em branco!",
                     Toast.LENGTH_LONG).show();
 
         }
 
 
     }
-    /**
-     * AsyncTask for updating a movie details
-     */
 
     private class UpdateMovieAsyncTask extends AsyncTask<String, String, String> {
         @Override
@@ -262,7 +252,7 @@ public class MovieUpdateDeleteActivity extends AppCompatActivity {
             super.onPreExecute();
             //Display progress bar
             pDialog = new ProgressDialog(MovieUpdateDeleteActivity.this);
-            pDialog.setMessage("Updating Movie. Please wait...");
+            pDialog.setMessage("Alterando filme, por favor aguarde...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
@@ -272,7 +262,7 @@ public class MovieUpdateDeleteActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
             HttpJsonParser httpJsonParser = new HttpJsonParser();
             Map<String, String> httpParams = new HashMap<>();
-            //Populating request parameters
+
             httpParams.put(KEY_MOVIE_ID, movieId);
             httpParams.put(KEY_MOVIE_NAME, movieName);
             httpParams.put(KEY_GENRE, genre);
@@ -293,17 +283,17 @@ public class MovieUpdateDeleteActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 public void run() {
                     if (success == 1) {
-                        //Display success message
+
                         Toast.makeText(MovieUpdateDeleteActivity.this,
-                                "Movie Updated", Toast.LENGTH_LONG).show();
+                                "Filme alterado", Toast.LENGTH_LONG).show();
                         Intent i = getIntent();
-                        //send result code 20 to notify about movie update
+
                         setResult(20, i);
                         finish();
 
                     } else {
                         Toast.makeText(MovieUpdateDeleteActivity.this,
-                                "Some error occurred while updating movie",
+                                "Ocorreu um erro ao atualizar o filme",
                                 Toast.LENGTH_LONG).show();
 
                     }

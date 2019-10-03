@@ -19,7 +19,45 @@ public class MainActivity extends AppCompatActivity {
 
         Button viewAllBtn = (Button) findViewById(R.id.viewAllBtn);
         Button addNewBtn = (Button) findViewById(R.id.addNewBtn);
+        viewAllBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Check for network connectivity
+                if (CheckNetworkStatus.isNetworkAvailable(getApplicationContext())) {
+                    Intent i = new Intent(getApplicationContext(),
+                            MovieListingActivity.class);
+                    startActivity(i);
+                } else {
+                    //Display error message if not connected to internet
+                    Toast.makeText(MainActivity.this,
+                            "Não foi possível conectar-se à Internet",
+                            Toast.LENGTH_LONG).show();
 
+                }
+
+            }
+        });
+
+        addNewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (CheckNetworkStatus.isNetworkAvailable(getApplicationContext())) {
+                    Intent i = new Intent(getApplicationContext(),
+                            AddMovieActivity.class);
+                    startActivity(i);
+                } else {
+
+                    Toast.makeText(MainActivity.this,
+                            "Não foi possível conectar-se à Internet",
+                            Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+        });
 
     }
+
+
 }

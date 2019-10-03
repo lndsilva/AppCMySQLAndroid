@@ -49,7 +49,7 @@ public class MovieListingActivity extends AppCompatActivity {
             super.onPreExecute();
             //Display progress bar
             pDialog = new ProgressDialog(MovieListingActivity.this);
-            pDialog.setMessage("Loading movies. Please wait...");
+            pDialog.setMessage("Carregando filmes. Por favor, aguarde...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
@@ -66,7 +66,7 @@ public class MovieListingActivity extends AppCompatActivity {
                 if (success == 1) {
                     movieList = new ArrayList<>();
                     movies = jsonObject.getJSONArray(KEY_DATA);
-                    //Iterate through the response and populate movies list
+
                     for (int i = 0; i < movies.length(); i++) {
                         JSONObject movie = movies.getJSONObject(i);
                         Integer movieId = movie.getInt(KEY_MOVIE_ID);
@@ -100,9 +100,9 @@ public class MovieListingActivity extends AppCompatActivity {
                 R.layout.list_item, new String[]{KEY_MOVIE_ID,
                 KEY_MOVIE_NAME},
                 new int[]{R.id.movieId, R.id.movieName});
-        // updating listview
+
         movieListView.setAdapter(adapter);
-        //Call MovieUpdateDeleteActivity when a movie is clicked
+
         movieListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -117,7 +117,7 @@ public class MovieListingActivity extends AppCompatActivity {
 
                 } else {
                     Toast.makeText(MovieListingActivity.this,
-                            "Unable to connect to internet",
+                            "Não foi possível conectar-se à Internet",
                             Toast.LENGTH_LONG).show();
 
                 }
@@ -132,9 +132,7 @@ public class MovieListingActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 20) {
-            // If the result code is 20 that means that
-            // the user has deleted/updated the movie.
-            // So refresh the movie listing
+
             Intent intent = getIntent();
             finish();
             startActivity(intent);

@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MovieUpdateDeleteActivity"></activity>
+        <activity android:name=".AddMovieActivity"></activity>
+        <activity android:name=".MovieUpdateDeleteActivity" />
         <activity android:name=".MovieListingActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
